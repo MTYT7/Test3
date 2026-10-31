@@ -1359,5 +1359,50 @@ if(Math.random()<1/10000){setTimeout(()=>triggerRickroll(),1200)}
 })();
 </script>
 <script src="multiplayer.js?v=4"></script>
+
+<script>
+(function () {
+  const targetDate = "2026-11-02";
+  const now = new Date();
+  const localDate = now.getFullYear() + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    String(now.getDate()).padStart(2, "0");
+  const storageKey = "matthewClickerNov2RetirementMessageShown";
+  if (localDate !== targetDate) return;
+  try {
+    if (localStorage.getItem(storageKey) === "1") return;
+  } catch (e) {}
+  function showMessage() {
+    if (document.getElementById("nov2RetirementMessage")) return;
+    const overlay = document.createElement("div");
+    overlay.id = "nov2RetirementMessage";
+    overlay.style.cssText = "position:fixed;inset:0;z-index:1000000;background:#000c;display:flex;align-items:center;justify-content:center;padding:18px;font-family:Arial,sans-serif";
+    const box = document.createElement("div");
+    box.style.cssText = "max-width:560px;width:100%;background:#24152f;color:#fff8e7;border:2px solid #ffb703;border-radius:14px;padding:24px;box-shadow:0 12px 45px #0009;text-align:center";
+    const heading = document.createElement("h2");
+    heading.textContent = "A message from the developer";
+    heading.style.cssText = "color:#ffb703;margin:0 0 16px";
+    const body = document.createElement("p");
+    body.textContent = "Hello logan or whoever else still plays this, this game has honestly died because of leo and mabye it just wasn't a good game but im probably not going to work on it anymore";
+    body.style.cssText = "font-size:16px;line-height:1.6;margin:0 0 22px";
+    const close = document.createElement("button");
+    close.textContent = "Close";
+    close.style.cssText = "border:0;border-radius:8px;padding:11px 24px;font-weight:bold;cursor:pointer;background:#ffb703;color:#24152f";
+    close.addEventListener("click", function () {
+      overlay.remove();
+      try { localStorage.setItem(storageKey, "1"); } catch (e) {}
+    });
+    box.append(heading, body, close);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", showMessage, { once: true });
+  } else {
+    showMessage();
+  }
+})();
+</script>
+
 </body>
 </html>
